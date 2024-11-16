@@ -1,1 +1,23 @@
-<p>selector-page works!</p>,
+<h1 class="mt-3"> Ring Selectors </h1>
+
+<hr>
+
+<form [formGroup]="myForm" >
+
+    <div class="row mb-3">
+        <div class="col " >
+        <label class="form-label" > Continents </label>
+        <select formControlName="region" class="form-control">
+            <option value="">Africa</option>
+        </select>
+        </div>
+    </div>
+
+</form>
+
+<h3>
+    Form
+</h3>
+<code>{{myForm.value | json }}</code>
+
+<pre> Form Valid: {{myForm.valid}} </pre>
