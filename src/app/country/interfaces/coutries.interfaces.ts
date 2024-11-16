@@ -8,6 +8,13 @@ export enum region{
     America = 'America',
 
 }
+
+export interface SmallCountry{
+    name:string ,
+    cca3: string ,
+    boders: string[]
+}
+
 export interface CoutriesInterface {
     name:         Name;
     cca3:         string;

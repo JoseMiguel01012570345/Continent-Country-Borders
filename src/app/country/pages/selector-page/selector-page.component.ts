@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { coutryService } from '../../services/country.service';
 import { region } from '../../interfaces/coutries.interfaces';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-selector-page',
   templateUrl: './selector-page.component.html',
  
 })
-export class SelectorPageComponent { 
+export class SelectorPageComponent implements OnInit { 
 
   public myForm: FormGroup 
 
@@ -28,9 +29,21 @@ export class SelectorPageComponent {
     
     )
   }
-
+  ngOnInit(): void {
+    this.onRegionChange()
+  }
+  
   get regions(): region[]{
     return this.coutryService.regions
+  }
+  
+  onRegionChange():void{
+    
+    this.myForm.get('region')!.valueChanges.pipe(
+      switchMap( region => this.coutryService.getCountriesByRegion( region ) )
+    )
+    .subscribe(region => console.log({region}))
+
   }
 
 
