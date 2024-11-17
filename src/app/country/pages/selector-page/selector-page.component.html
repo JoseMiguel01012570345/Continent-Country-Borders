@@ -17,7 +17,16 @@
         <div class="col " >
         <label class="form-label" > Countries </label>
         <select formControlName="country" class="form-control">
-            <option *ngFor="let region of coutriesNameByRegion" [value]="region">{{region}}</option>
+            <option *ngFor="let region of coutriesByRegion" [value]="region.cca3">{{region.name}}</option>
+        </select>
+        </div>
+    </div>
+    
+    <div class="row mb-3">
+        <div class="col " >
+        <label class="form-label" > Borders </label>
+        <select formControlName="border" class="form-control">
+            <option *ngFor="let border of borders" [value]="border">{{border}}</option>
         </select>
         </div>
     </div>

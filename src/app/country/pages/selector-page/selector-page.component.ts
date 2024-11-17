@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { coutryService } from '../../services/country.service';
 import { region, SmallCountry } from '../../interfaces/coutries.interfaces';
-import { switchMap } from 'rxjs';
+import { switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-selector-page',
@@ -31,14 +31,15 @@ export class SelectorPageComponent implements OnInit {
   }
   ngOnInit(): void {
     this.onRegionChange()
+    this.onCountryChange()
   }
   
   get regions(): region[]{
     return this.coutryService.regions
   }
   
-  coutriesNameByRegion: string[] = []
   coutriesByRegion: SmallCountry[] = []
+  borders: string[] = []
   
   onRegionChange():void{
     
@@ -47,8 +48,21 @@ export class SelectorPageComponent implements OnInit {
     )
     .subscribe( region => {
       this.coutriesByRegion = region
-      this.coutriesNameByRegion = region.map( country =>  country.name)
     } )
+  }
+  
+  onCountryChange(): void{
+    
+    this.myForm.get('country')!.valueChanges.pipe(
+      switchMap( ( alphaCode ) =>
+         this.coutryService.CountryByAphaCode( alphaCode ) )
+    )
+    .subscribe( country => {
+      console.log({country:country})
+        this.borders = country.borders
+    } )
+
+
   }
 
 }

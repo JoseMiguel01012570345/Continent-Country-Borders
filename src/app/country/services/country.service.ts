@@ -44,4 +44,19 @@ export class coutryService {
         ),)
     }
 
+    CountryByAphaCode( aplhaCode:string ):Observable<SmallCountry>{
+
+        console.log({aplhaCode:aplhaCode})
+
+        const url = `${this.baseURL}/alpha/${aplhaCode}?fields=cca3,name,borders`
+        return this.http.get<CountriesInterface>(url).pipe(
+            map(country => ({
+                name:country.name.common ,
+                cca3: country.cca3 ,
+                borders: country.borders ?? []
+
+            }
+         ) ) ,
+        )
+    }
 }
