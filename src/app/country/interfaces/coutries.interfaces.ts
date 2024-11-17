@@ -12,10 +12,10 @@ export enum region{
 export interface SmallCountry{
     name:string ,
     cca3: string ,
-    boders: string[]
+    borders: string[]
 }
 
-export interface CoutriesInterface {
+export interface CountriesInterface {
     name:         Name;
     cca3:         string;
     independent?: boolean;

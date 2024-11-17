@@ -17,7 +17,7 @@
         <div class="col " >
         <label class="form-label" > Countries </label>
         <select formControlName="country" class="form-control">
-            <option *ngFor="let region of regions" [value]="region">{{region}}</option>
+            <option *ngFor="let region of coutriesNameByRegion" [value]="region">{{region}}</option>
         </select>
         </div>
     </div>
@@ -27,6 +27,9 @@
 <h3>
     Form
 </h3>
-<code>{{myForm.value | json }}</code>
+<code>{{{region: myForm.controls['region'].value ,
+         country: myForm.controls['country'].value,
+         border: myForm.controls['border'].value,
+         } | json }}</code>
 
 <pre> Form Valid: {{myForm.valid}} </pre>

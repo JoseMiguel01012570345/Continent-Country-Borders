@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { region, SmallCountry } from '../interfaces/coutries.interfaces';
-import { Observable, of, tap } from 'rxjs';
+import { CountriesInterface, region, SmallCountry } from '../interfaces/coutries.interfaces';
+import { map, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
@@ -31,9 +31,17 @@ export class coutryService {
         
         const url: string = `${this.baseURL}/region/${region}?fields=cca3,name,borders`
 
-        return this.http.get<SmallCountry[]>(url).pipe(
-            tap(response => console.log({response}))
-        )
+        return this.http.get<CountriesInterface[]>(url).pipe(
+            map( (countries:Array<CountriesInterface>) => countries.map(
+                country =>
+            ({
+                name:country.name.common ,
+                cca3: country.cca3 ,
+                borders: country.borders ?? []
+
+            }
+         )  ) 
+        ),)
     }
 
 }
