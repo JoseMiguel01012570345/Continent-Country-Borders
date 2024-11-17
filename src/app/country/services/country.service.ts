@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CountriesInterface, region, SmallCountry } from '../interfaces/coutries.interfaces';
-import { map, Observable, of, tap } from 'rxjs';
+import { combineLatest, map, Observable, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
@@ -58,5 +58,19 @@ export class coutryService {
             }
          ) ) ,
         )
+    }
+
+    getCountryNameByAlphaCode( borders:string[] ): Observable<SmallCountry[]>
+    {
+
+        if( !borders || borders.length === 0 ) return of([])
+
+        let smallCountryByAlphaCode: Observable<SmallCountry>[] = []
+
+        borders.forEach( code =>{
+            smallCountryByAlphaCode.push( this.CountryByAphaCode(code) )
+        })
+
+        return combineLatest( smallCountryByAlphaCode )
     }
 }

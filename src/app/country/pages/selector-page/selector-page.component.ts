@@ -39,7 +39,7 @@ export class SelectorPageComponent implements OnInit {
   }
   
   coutriesByRegion: SmallCountry[] = []
-  borders: string[] = []
+  borders: SmallCountry[] = []
   
   onRegionChange():void{
     
@@ -55,14 +55,12 @@ export class SelectorPageComponent implements OnInit {
     
     this.myForm.get('country')!.valueChanges.pipe(
       switchMap( ( alphaCode ) =>
-         this.coutryService.CountryByAphaCode( alphaCode ) )
+         this.coutryService.CountryByAphaCode( alphaCode ) ),
+      switchMap( country => this.coutryService.getCountryNameByAlphaCode( country.borders ) )
     )
     .subscribe( country => {
-      console.log({country:country})
-        this.borders = country.borders
+        this.borders = country
     } )
-
-
   }
 
 }

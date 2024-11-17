@@ -1,8 +1,8 @@
-<h1 class="mt-3"> Ring Selectors </h1>
+<h1 class="mt-3"> Continent/Country/Borders </h1>
 
 <hr>
 
-<form [formGroup]="myForm" >
+<form class="container" [formGroup]="myForm" >
 
     <div class="row mb-3">
         <div class="col " >
@@ -26,19 +26,9 @@
         <div class="col " >
         <label class="form-label" > Borders </label>
         <select formControlName="border" class="form-control">
-            <option *ngFor="let border of borders" [value]="border">{{border}}</option>
+            <option *ngFor="let border of borders" [value]="border.name">{{border.name}}</option>
         </select>
         </div>
     </div>
 
 </form>
-
-<h3>
-    Form
-</h3>
-<code>{{{region: myForm.controls['region'].value ,
-         country: myForm.controls['country'].value,
-         border: myForm.controls['border'].value,
-         } | json }}</code>
-
-<pre> Form Valid: {{myForm.valid}} </pre>
